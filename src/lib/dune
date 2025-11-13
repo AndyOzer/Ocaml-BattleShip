@@ -1,3 +1,11 @@
 (library
- (name web_ui)
- (libraries dream))
+  (name web_ui)
+  (modules web_ui)
+  (libraries
+    core
+    dream
+  )
+  (preprocess
+    (pps ppx_jane bisect_ppx)
+  )
+)
