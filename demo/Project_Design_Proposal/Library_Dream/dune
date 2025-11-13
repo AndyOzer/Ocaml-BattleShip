@@ -1,0 +1,8 @@
+(executable
+  (name demo_dream)
+  (modules demo_dream)
+  (libraries dream)
+  (promote
+    (until-clean)
+  )
+)
