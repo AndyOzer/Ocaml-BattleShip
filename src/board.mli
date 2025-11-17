@@ -1,5 +1,8 @@
 open Types
 
+val inbounds : coord -> bool
+(* Checks if the given coordinate is within the bounds of the board *)
+
 val insert_cells : board -> (coord * cell) list -> board
 (* Inserts multiple cells into the board at the specified coordinates *)
 

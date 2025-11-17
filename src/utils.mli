@@ -10,8 +10,3 @@ val coord_of_string : string -> coord option
 
 val string_of_coord : coord -> string
 
-val empty_board : board
-
-val cell_to_char : cell -> char
-
-val print_board : ?show_ships:bool -> board -> unit
