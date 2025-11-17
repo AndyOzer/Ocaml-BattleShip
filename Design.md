@@ -31,7 +31,15 @@ The primary focus of the project is the design and implementation of different A
 
 ## Mock use of the application
 
-
+- **Start:**
+  The program begins by letting the user select a difficulty level. Upon clicking the button, the website navigates to the "/game" page, with the selected information passed via a GET request.
+  ![mock_use_start](demo/Project_Design_Proposal/Mock_Use/mock_use_start.png)
+- **Gaming:**
+  During gameplay, players select cells on the enemy's board to launch attacks. In the current demo, cell status is indicated by digits. Our plan is to enhance the illustration by using colored boxes to visually represent the status.
+![mock_use_gaming](demo/Project_Design_Proposal/Mock_Use/mock_use_gaming.png)
+- **End:**
+  When the game concludes (all ships of one side are sunk), a prompt appears to notify the player.
+![mock_use_result](demo/Project_Design_Proposal/Mock_Use/mock_use_result.png)
 
 ## Libraries
 
@@ -43,7 +51,7 @@ The primary focus of the project is the design and implementation of different A
 
 ## Commented module type declarations
 
-
+A demo showing the basic function of Dream module can be find under "demo/Project_Design_Proposal/Library_Dream".
 
 ## Implementation Plan
 

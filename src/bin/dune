@@ -4,8 +4,15 @@
   (libraries
     core
     dream
-    web_ui)
+    web_ui
+  )
   (preprocess
-  (pps ppx_jane bisect_ppx))
+    (pps
+      ppx_jane
+      bisect_ppx
+    )
+  )
   (promote
-    (until-clean)))
+    (until-clean)
+  )
+)
