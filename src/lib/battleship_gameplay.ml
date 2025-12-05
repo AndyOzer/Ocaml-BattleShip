@@ -8,7 +8,7 @@ let fire_at_coordinate (target_coordinate: Battleship_types.coordinate) (board: 
   | Some cell ->
       match cell.cell_type with
       | Hit | Miss -> (board, "Coordinate already targeted")
-      | ShipPart ship_type ->
+      | ShipPart _ ->
           let updated_cells = List.map (fun c ->
             if coord_equal c.coordinate target_coordinate then
               { c with cell_type = Hit }

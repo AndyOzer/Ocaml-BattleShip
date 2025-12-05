@@ -1,4 +1,4 @@
-open Battleship_types
+
 
 val coord_equal : Battleship_types.coordinate -> Battleship_types.coordinate -> bool
 
@@ -11,3 +11,5 @@ val make_empty_board : int -> Battleship_types.board
 val ship_contains_coordinate : Battleship_types.ship -> Battleship_types.coordinate -> bool
 
 val ship_is_sunk : Battleship_types.ship -> bool
+
+val remove_sunk_ships : Battleship_types.board -> Battleship_types.board

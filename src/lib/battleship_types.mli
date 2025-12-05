@@ -5,7 +5,7 @@ type coordinate = {
 
 type ship_type = Carrier | Battleship | Cruiser | Submarine | Destroyer
 
-type orientation = Horizontal | Vertical
+(* type orientation = Horizontal | Vertical *)
 
 type board_cell_type = Empty | ShipPart of ship_type | Hit | Miss
 

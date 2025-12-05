@@ -1,6 +1,5 @@
 open Battleship_types
 open Battleship_helper
-open Battleship_gameplay
 
 (* easy: randomly select a coordinate that has not been targeted yet *)
 let easy_next_fire_coordinate (board: Battleship_types.board) : Battleship_types.coordinate =
@@ -10,7 +9,8 @@ let easy_next_fire_coordinate (board: Battleship_types.board) : Battleship_types
     | Hit | Miss -> false
   ) board.battleship_board in
   let random_index = Random.int (List.length untargeted_cells) in
-  (List.nth untargeted_cells random_index).coordinate
+  let target_cell = List.nth untargeted_cells random_index in
+  target_cell.coordinate
 
 (* medium: randomly select a coordinate that has not been targeted yet, if hit, fire adjacent cell until the ship is sunk *)
 let medium_next_fire_coordinate (board: Battleship_types.board) : Battleship_types.coordinate =
@@ -52,4 +52,4 @@ let medium_next_fire_coordinate (board: Battleship_types.board) : Battleship_typ
       (List.nth untargeted_cells random_index).coordinate
   | _ ->
       let random_index = Random.int (List.length adjacent_untargeted_coords) in
-      (List.nth adjacent_untargeted_coords random_index).coordinate
+      (List.nth adjacent_untargeted_coords random_index)
