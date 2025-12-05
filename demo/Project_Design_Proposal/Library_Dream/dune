@@ -1,8 +1,8 @@
-(executable
-  (name dream_demo)
-  (modules dream_demo)
-  (libraries dream)
-  (promote
-    (until-clean)
-  )
-)
+; (executable
+;   (name dream_demo)
+;   (modules dream_demo)
+;   (libraries dream)
+;   (promote
+;     (until-clean)
+;   )
+; )

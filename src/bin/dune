@@ -1,18 +1,25 @@
+; (executable
+;   (name main)
+;   (modules main)
+;   (libraries
+;     core
+;     dream
+;     web_ui
+;   )
+;   (preprocess
+;     (pps
+;       ppx_jane
+;       bisect_ppx
+;     )
+;   )
+;   (promote
+;     (until-clean)
+;   )
+; )
+
 (executable
-  (name main)
-  (modules main)
-  (libraries
-    core
-    dream
-    web_ui
-  )
-  (preprocess
-    (pps
-      ppx_jane
-      bisect_ppx
-    )
-  )
-  (promote
-    (until-clean)
-  )
+ (name battleship_count)
+ (modules battleship_count)
+ (libraries core core_unix battleship_types battleship_helper battleship_placement battleship_gameplay battleship_ai)
+ (preprocess (pps ppx_jane bisect_ppx))
 )

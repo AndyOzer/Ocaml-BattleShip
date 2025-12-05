@@ -1,14 +1,14 @@
-(library
-  (name web_ui)
-  (modules web_ui)
-  (libraries
-    core
-    dream
-  )
-  (preprocess
-    (pps ppx_jane bisect_ppx)
-  )
-)
+; (library
+;   (name web_ui)
+;   (modules web_ui)
+;   (libraries
+;     core
+;     dream
+;   )
+;   (preprocess
+;     (pps ppx_jane bisect_ppx)
+;   )
+; )
 
 (library
   (name battleship_helper)
