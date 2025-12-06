@@ -2,8 +2,6 @@ open Core
 open OUnit2
 open Battleship_types
 
-let printer_coord c = Printf.sprintf "{%d,%d}" c.x_coordinate c.y_coordinate
-
 let test_ship_size _ctx =
   assert_equal ~printer:string_of_int 5 (ship_size Carrier);
   assert_equal ~printer:string_of_int 4 (ship_size Battleship);
@@ -14,7 +12,7 @@ let test_ship_size _ctx =
 let test_cell_creation _ctx =
   let c = { x_coordinate = 1; y_coordinate = 2 } in
   let cell = { coordinate = c; cell_type = Empty } in
-  assert_equal ~printer:printer_coord c cell.coordinate;
+  assert_equal c cell.coordinate;
   assert_equal Empty cell.cell_type
 
 let test_ship_structure _ctx =
@@ -26,9 +24,9 @@ let test_ship_structure _ctx =
 
 let suite =
   "battleship_types" >::: [
-    "ship_size" >:: test_ship_size;
-    "cell_creation" >:: test_cell_creation;
-    "ship_structure" >:: test_ship_structure;
+    "test_ship_size" >:: test_ship_size;
+    "test_cell_creation" >:: test_cell_creation;
+    "test_ship_structure" >:: test_ship_structure;
   ]
 
 let () = run_test_tt_main suite
