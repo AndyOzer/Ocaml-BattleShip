@@ -3,8 +3,6 @@ open OUnit2
 open Battleship_helper
 open Battleship_types
 
-let printer_coord c = Printf.sprintf "{%d,%d}" c.x_coordinate c.y_coordinate
-
 let test_coord_equal _ctx =
   let a = { x_coordinate = 1; y_coordinate = 2 } in
   let b = { x_coordinate = 1; y_coordinate = 2 } in
@@ -21,7 +19,7 @@ let test_coord_in_list _ctx =
 
 let test_make_cell_and_board _ctx =
   let cell = make_cell ~x:2 ~y:3 in
-  assert_equal ~printer:printer_coord { x_coordinate = 2; y_coordinate = 3 } cell.coordinate;
+  assert_equal { x_coordinate = 2; y_coordinate = 3 } cell.coordinate;
   assert_equal Empty cell.cell_type;
   let board = make_empty_board 4 in
   assert_equal 16 (List.length board.battleship_board);
@@ -48,11 +46,11 @@ let test_remove_sunk_ships _ctx =
 
 let suite =
   "battleship_helper" >::: [
-    "coord_equal" >:: test_coord_equal;
-    "coord_in_list" >:: test_coord_in_list;
-    "make_cell_and_board" >:: test_make_cell_and_board;
-    "ship_contains_and_sunk" >:: test_ship_contains_and_sunk;
-    "remove_sunk_ships" >:: test_remove_sunk_ships;
+    "test_coord_equal" >:: test_coord_equal;
+    "test_coord_in_list" >:: test_coord_in_list;
+    "test_make_cell_and_board" >:: test_make_cell_and_board;
+    "test_ship_contains_and_sunk" >:: test_ship_contains_and_sunk;
+    "test_remove_sunk_ships" >:: test_remove_sunk_ships;
   ]
 
 let () = run_test_tt_main suite

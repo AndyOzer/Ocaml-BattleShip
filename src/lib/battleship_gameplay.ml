@@ -11,28 +11,28 @@ let fire_at_coordinate (target_coordinate: Battleship_types.coordinate) (board: 
       | ShipPart _ ->
           let updated_cells = List.map (fun c ->
             if coord_equal c.coordinate target_coordinate then
-              { c with cell_type = Hit }
+              { coordinate = c.coordinate; cell_type = Hit }
             else
               c
           ) board.battleship_board in
           let updated_ships = List.map (fun ship ->
             if List.exists (coord_equal target_coordinate) ship.coordinates then
-              { ship with hits = target_coordinate :: ship.hits }
+              { battleship_type = ship.battleship_type; orientation = ship.orientation; coordinates = ship.coordinates; hits = target_coordinate :: ship.hits }
             else
               ship
           ) board.ships in
-          let new_board = { board with battleship_board = updated_cells; ships = updated_ships } in
+          let new_board = { board_size = board.board_size; battleship_board = updated_cells; ships = updated_ships } in
 
           let final_board = remove_sunk_ships new_board in
           (final_board, "Hit!")
       | Empty ->
           let updated_cells = List.map (fun c ->
             if coord_equal c.coordinate target_coordinate then
-              { c with cell_type = Miss }
+              { coordinate = c.coordinate; cell_type = Miss }
             else
               c
           ) board.battleship_board in
-          let new_board = { board with battleship_board = updated_cells } in
+          let new_board = { board_size = board.board_size; battleship_board = updated_cells; ships = board.ships } in
           (new_board, "Miss!")
 
 

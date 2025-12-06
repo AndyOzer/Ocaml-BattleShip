@@ -4,15 +4,13 @@ open Battleship_types
 open Battleship_helper
 open Battleship_placement
 
-let printer_coord c = Printf.sprintf "{%d,%d}" c.x_coordinate c.y_coordinate
-
 let test_generate_ship_coordinates _ctx =
 	let start = { x_coordinate = 1; y_coordinate = 1 } in
 	let coords = generate_ship_coordinates start Carrier Horizontal in
 	assert_equal ~printer:string_of_int 5 (List.length coords);
-	assert_equal ~printer:printer_coord start (List.hd_exn coords);
+	assert_equal start (List.hd_exn coords);
 	let last = List.nth_exn coords 4 in
-	assert_equal ~printer:printer_coord { x_coordinate = 5; y_coordinate = 1 } last
+	assert_equal { x_coordinate = 5; y_coordinate = 1 } last
 
 let test_is_ship_within_bounds _ctx =
 	let board = make_empty_board 5 in
@@ -59,12 +57,12 @@ let test_auto_place_all_ships _ctx =
 
 let suite =
 	"battleship_placement" >::: [
-		"generate_ship_coordinates" >:: test_generate_ship_coordinates;
-		"is_ship_within_bounds" >:: test_is_ship_within_bounds;
-		"does_ship_overlap_and_is_valid" >:: test_does_ship_overlap_and_is_valid;
-		"place_ship_on_board_updates_board" >:: test_place_ship_on_board_updates_board;
-		"place_ship_on_board_invalid" >:: test_place_ship_on_board_invalid;
-		"auto_place_all_ships" >:: test_auto_place_all_ships;
+		"test_generate_ship_coordinates" >:: test_generate_ship_coordinates;
+		"test_is_ship_within_bounds" >:: test_is_ship_within_bounds;
+		"test_does_ship_overlap_and_is_valid" >:: test_does_ship_overlap_and_is_valid;
+		"test_place_ship_on_board_updates_board" >:: test_place_ship_on_board_updates_board;
+		"test_place_ship_on_board_invalid" >:: test_place_ship_on_board_invalid;
+		"test_auto_place_all_ships" >:: test_auto_place_all_ships;
 	]
 
 let () = run_test_tt_main suite
