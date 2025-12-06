@@ -49,10 +49,10 @@ let test_game_over_after_sinking _ctx =
 
 let suite =
   "battleship_gameplay" >::: [
-    "fire_hit" >:: test_fire_hit;
-    "fire_miss" >:: test_fire_miss;
-    "fire_out_of_bounds" >:: test_fire_out_of_bounds;
-    "game_over_after_sinking" >:: test_game_over_after_sinking;
+    "test_fire_hit" >:: test_fire_hit;
+    "test_fire_miss" >:: test_fire_miss;
+    "test_fire_out_of_bounds" >:: test_fire_out_of_bounds;
+    "test_game_over_after_sinking" >:: test_game_over_after_sinking;
   ]
 
 let () = run_test_tt_main suite

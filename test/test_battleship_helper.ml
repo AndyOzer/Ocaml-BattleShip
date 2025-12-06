@@ -46,11 +46,11 @@ let test_remove_sunk_ships _ctx =
 
 let suite =
   "battleship_helper" >::: [
-    "coord_equal" >:: test_coord_equal;
-    "coord_in_list" >:: test_coord_in_list;
-    "make_cell_and_board" >:: test_make_cell_and_board;
-    "ship_contains_and_sunk" >:: test_ship_contains_and_sunk;
-    "remove_sunk_ships" >:: test_remove_sunk_ships;
+    "test_coord_equal" >:: test_coord_equal;
+    "test_coord_in_list" >:: test_coord_in_list;
+    "test_make_cell_and_board" >:: test_make_cell_and_board;
+    "test_ship_contains_and_sunk" >:: test_ship_contains_and_sunk;
+    "test_remove_sunk_ships" >:: test_remove_sunk_ships;
   ]
 
 let () = run_test_tt_main suite

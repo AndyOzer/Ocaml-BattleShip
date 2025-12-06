@@ -57,12 +57,12 @@ let test_auto_place_all_ships _ctx =
 
 let suite =
 	"battleship_placement" >::: [
-		"generate_ship_coordinates" >:: test_generate_ship_coordinates;
-		"is_ship_within_bounds" >:: test_is_ship_within_bounds;
-		"does_ship_overlap_and_is_valid" >:: test_does_ship_overlap_and_is_valid;
-		"place_ship_on_board_updates_board" >:: test_place_ship_on_board_updates_board;
-		"place_ship_on_board_invalid" >:: test_place_ship_on_board_invalid;
-		"auto_place_all_ships" >:: test_auto_place_all_ships;
+		"test_generate_ship_coordinates" >:: test_generate_ship_coordinates;
+		"test_is_ship_within_bounds" >:: test_is_ship_within_bounds;
+		"test_does_ship_overlap_and_is_valid" >:: test_does_ship_overlap_and_is_valid;
+		"test_place_ship_on_board_updates_board" >:: test_place_ship_on_board_updates_board;
+		"test_place_ship_on_board_invalid" >:: test_place_ship_on_board_invalid;
+		"test_auto_place_all_ships" >:: test_auto_place_all_ships;
 	]
 
 let () = run_test_tt_main suite
