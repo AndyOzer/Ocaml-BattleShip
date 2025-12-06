@@ -36,6 +36,12 @@
 
 **Status:**  Complete
 
+#### `battleship_count.ml`
+
+**Status:**  Partially Complete
+
+This file is an executable used for running Monte Carlo simulations to evaluate different AI strategies.
+
 - functions for board operations
 
 ### Battleship Game AI Algorithms

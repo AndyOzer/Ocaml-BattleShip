@@ -55,9 +55,9 @@ let () =
 	let trials = 10000 in
 	let board_size = 10 in
 	let seed_start = 42 in
-	(* run easy *)
+
+	let _optimal = run_and_print ~name:"optimal" ~strategy:optimal_next_fire_coordinate ~board_size ~trials ~seed_start in
 	let _easy = run_and_print ~name:"easy" ~strategy:easy_next_fire_coordinate ~board_size ~trials ~seed_start in
-	(* run medium *)
 	let _medium = run_and_print ~name:"medium" ~strategy:medium_next_fire_coordinate ~board_size ~trials ~seed_start in
 
 	(* let _hard = run_and_print ~name:"hard" ~strategy:hard_next_fire_coordinate ~board_size ~trials ~seed_start in *)
