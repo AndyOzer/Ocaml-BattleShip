@@ -4,17 +4,48 @@
   <meta charset="UTF-8"/>
   <title>Ocaml Battleship - Setup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 </head>
-<body>
-  <h1>Ocaml Battleship</h1>
-  <button onclick="window.location.href='/game?diff=ez'">
-    Easy
-  </button>
-  <button onclick="window.location.href='/game?diff=md'">
-    Medium
-  </button>
-  <button onclick="window.location.href='/game?diff=hd'">
-    Hard
-  </button>
+<body class="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+  <h1 class="text-3xl font-bold mb-8">
+    Ocaml Battleship
+  </h1>
+  <div class="w-full max-w-md mb-2">
+    <input
+      id="boardSize"
+      name="size"
+      type="text"
+      placeholder="Enter board size"
+      class="w-full py-3 px-4 rounded-xl border border-gray-300 text-lg"
+    />
+  </div>
+  <div id="size-error" class="text-red-600 mb-6 h-6"></div>
+  <div class="w-full max-w-md flex flex-wrap justify-center gap-4 px-4">
+    <button
+      onclick="startGame('ez')"
+      class="flex-1 min-w-[100px] py-3 rounded-lg bg-blue-500 text-white text-lg hover:bg-blue-600"
+    >
+      Easy
+    </button>
+    <button
+      onclick="startGame('md')"
+      class="flex-1 min-w-[100px] py-3 rounded-lg bg-blue-500 text-white text-lg hover:bg-blue-600"
+    >
+      Medium
+    </button>
+    <button
+      onclick="startGame('hd')"
+      class="flex-1 min-w-[100px] py-3 rounded-lg bg-blue-500 text-white text-lg hover:bg-blue-600"
+    >
+      Hard
+    </button>
+  </div>
+  <script>
+    function startGame(diff) {
+      const sizeInput = document.getElementById('boardSize').value.trim();
+      const sizeParam = sizeInput ? `&size=${encodeURIComponent(sizeInput)}` : '';
+      window.location.href = `/game?diff=${diff}${sizeParam}`;
+    }
+  </script>
 </body>
 </html>
