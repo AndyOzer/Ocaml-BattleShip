@@ -44,15 +44,11 @@ let place_ship_on_board (start_coordinate: Battleship_types.coordinate) (ship_ty
     } in
     let updated_board_cells = List.map (fun cell ->
       if coord_in_list cell.coordinate ship_coords then
-        { cell with cell_type = ShipPart ship_type }
+        { coordinate = cell.coordinate; cell_type = ShipPart ship_type }
       else
         cell
     ) board.battleship_board in
-    let new_board = {
-      board with
-      battleship_board = updated_board_cells;
-      ships = new_ship :: board.ships;
-    } in
+    let new_board = { board_size = board.board_size; battleship_board = updated_board_cells; ships = new_ship :: board.ships } in
     (new_board, "Ship placed successfully")
 
 let auto_place_all_ships (board: Battleship_types.board) : Battleship_types.board =

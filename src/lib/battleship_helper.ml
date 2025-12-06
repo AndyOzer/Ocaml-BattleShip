@@ -22,4 +22,4 @@ let ship_is_sunk ship = List.for_all (fun c -> coord_in_list c ship.hits) ship.c
 
 let remove_sunk_ships (board: Battleship_types.board) : Battleship_types.board =
 	let (_sunk, alive) = List.partition ship_is_sunk board.ships in
-	{ board with ships = alive }
+	{ board_size = board.board_size; battleship_board = board.battleship_board; ships = alive }
