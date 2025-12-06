@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>Ocaml Battleship - Setup</title>
+  <title>Ocaml Battleship - Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js"></script>
@@ -14,7 +14,7 @@
     <div
       id="board-left"
       class="bg-white shadow-lg p-4 rounded-xl"
-      hx-get="/game?partial=board&side=player"
+      hx-get="/game?side=player"
       hx-trigger="load"
       hx-target="#board-left"
       hx-swap="innerHTML"
@@ -24,7 +24,7 @@
     <div
       id="board-right"
       class="bg-white shadow-lg p-4 rounded-xl"
-      hx-get="/game?partial=board&side=enemy"
+      hx-get="/game?side=enemy"
       hx-trigger="load"
       hx-target="#board-right"
       hx-swap="innerHTML"
