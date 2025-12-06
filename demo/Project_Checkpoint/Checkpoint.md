@@ -50,7 +50,7 @@
 
 Current stats for Easy Mode and Medium Mode
 
-![image-20251205195358289](/Users/dingzhao/Library/Application Support/typora-user-images/image-20251205195358289.png)![image-20251205195417299](/Users/dingzhao/Library/Application Support/typora-user-images/image-20251205195417299.png)
+![image-20251205195358289](../../results/ai_strategies_ecdf.png)![image-20251205195417299](../../results/ai_strategies_pdf.png)
 
 ### Battleship Game Frontend
 
