@@ -3,6 +3,7 @@
 ### Battleship Game Framework
 
 #### `battleship_types.ml[i]`
+
 **Status:**  Complete
 
 - **Key Types:**
@@ -15,6 +16,7 @@
   - `ship_size`: Returns size of each ship type
 
 #### `battleship_placement.ml[i]`
+
 **Status:**  Complete
 
 - Handles ship placement logic
@@ -22,6 +24,7 @@
 - Auto-placement functionality for random ship placement
 
 #### `battleship_gameplay.ml[i]`
+
 **Status:**  Complete
 
 - Fire at coordinates on opponent's board
@@ -30,6 +33,7 @@
 - Update board state after each move
 
 #### `battleship_helper.ml[i]`
+
 **Status:**  Complete
 
 - functions for board operations
@@ -37,6 +41,7 @@
 ### Battleship Game AI Algorithms
 
 #### `battleship_ai.ml[i]`
+
 **Status:**  Incomplete
 
 - Three difficulty levels for AI opponents
@@ -54,3 +59,18 @@ Current stats for Easy Mode and Medium Mode
 
 ### Battleship Game Frontend
 
+### Battleship Game Test Coverage
+
+#### Tested files
+
+Battleship_placement.ml
+
+Battleship_helper.ml
+
+Battleship_placement.ml
+
+Battleship_types.ml
+
+#### Test Coverage
+
+![coverage_report](coverage_report.png)
