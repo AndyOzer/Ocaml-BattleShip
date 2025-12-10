@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta
+    charset="UTF-8"
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
   <title>Ocaml Battleship - Game</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js"></script>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-start pt-12 bg-gray-100"
-  hx-on:htmx:config-request="event.detail.parameters.size = new URLSearchParams(window.location.search).get('size')">
-  <h1 class="text-3xl font-bold mb-6">Ocaml Battleship</h1>
-  <div class="flex flex-row gap-10">
-    <div
-      id="board-left"
-      class="bg-white shadow-lg p-4 rounded-xl"
-      hx-get="/game?side=player"
-      hx-trigger="load"
-      hx-target="#board-left"
-      hx-swap="innerHTML"
-    >
-      <div class="text-gray-400">Loading left board...</div>
-    </div>
-    <div
-      id="board-right"
-      class="bg-white shadow-lg p-4 rounded-xl"
-      hx-get="/game?side=enemy"
-      hx-trigger="load"
-      hx-target="#board-right"
-      hx-swap="innerHTML"
-    >
-      <div class="text-gray-400">Loading right board...</div>
-    </div>
+<body class="min-h-screen flex flex-col items-center pt-10 bg-gray-200">
+  <h1 class="text-4xl font-bold mb-10">Ocaml Battleship</h1>
+  <div
+    id="boards"
+    hx-get="/game"
+    hx-trigger="load"
+    hx-target="this"
+    hx-swap="outerHTML"
+    hx-on::config-request="event.detail.parameters.size = new URLSearchParams(window.location.search).get('size'); event.detail.parameters.diff = new URLSearchParams(window.location.search).get('diff')"
+  >
   </div>
 </body>
