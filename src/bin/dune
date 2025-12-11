@@ -1,21 +1,21 @@
-; (executable
-;   (name main)
-;   (modules main)
-;   (libraries
-;     core
-;     dream
-;     web_ui
-;   )
-;   (preprocess
-;     (pps
-;       ppx_jane
-;       bisect_ppx
-;     )
-;   )
-;   (promote
-;     (until-clean)
-;   )
-; )
+(executable
+  (name main)
+  (modules main)
+  (libraries
+    core
+    dream
+    web_ui
+  )
+  (preprocess
+    (pps
+      ppx_jane
+      bisect_ppx
+    )
+  )
+  (promote
+    (until-clean)
+  )
+)
 
 (executable
  (name battleship_count)
