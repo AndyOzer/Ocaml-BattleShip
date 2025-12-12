@@ -162,7 +162,7 @@ let boards_to_html (board_p1 : board) (board_p2 : board) (game_diff : string) (g
     | "end1" -> "😭 You Lose! 😭"
     | "end2" -> "🎉 You Win! 🎉"
     | state when String.is_prefix state ~prefix:"place" ->
-      let is_error = match String.contains state 'E' with true -> "Invalid Placement!" | false -> "" in
+      let is_error = match String.contains state 'E' with true -> "Invalid!" | false -> "" in
       let msg = match game_state with
         | state when String.is_prefix state ~prefix:"place1" -> "Place Your Carrier - 1 x 5"
         | state when String.is_prefix state ~prefix:"place2" -> "Place Your Battleship - 1 x 4"
