@@ -5,11 +5,11 @@ open Battleship_helper
 
 (* easy: randomly select a coordinate that has not been targeted yet *)
 let easy_next_fire_coordinate (board: Battleship_types.board) : Battleship_types.coordinate =
-  let untargeted_cells = List.filter (fun cell ->
+  let untargeted_cells = board.battleship_board |> List.filter (fun cell ->
     match cell.cell_type with
     | Empty | ShipPart _ -> true
     | Hit | Miss -> false
-  ) board.battleship_board in
+  ) in
   let random_index = Random.int (List.length untargeted_cells) in
   let target_cell = List.nth untargeted_cells random_index in
   target_cell.coordinate
@@ -17,19 +17,19 @@ let easy_next_fire_coordinate (board: Battleship_types.board) : Battleship_types
 (* medium: randomly select a coordinate that has not been targeted yet, if hit, fire adjacent cell until the ship is sunk *)
 let medium_next_fire_coordinate (board: Battleship_types.board) : Battleship_types.coordinate =
 
-  let untargeted_cells = List.filter (fun cell ->
+  let untargeted_cells = board.battleship_board |> List.filter (fun cell ->
     match cell.cell_type with
     | Empty | ShipPart _ -> true
     | Hit | Miss -> false
-  ) board.battleship_board in
+  ) in
 
-  let hit_cells = List.filter (fun cell ->
+  let hit_cells = board.battleship_board |> List.filter (fun cell ->
     match cell.cell_type with
     | Hit -> true
     | _ -> false
-  ) board.battleship_board in
+  ) in
 
-  let adjacent_untargeted_coords = List.flatten (List.map (fun hit_cell ->
+  let adjacent_untargeted_coords = hit_cells |> List.concat_map (fun hit_cell ->
     let x = hit_cell.coordinate.x_coordinate in
     let y = hit_cell.coordinate.y_coordinate in
     let potential_coords = [
@@ -47,7 +47,7 @@ let medium_next_fire_coordinate (board: Battleship_types.board) : Battleship_typ
     List.filter (fun coord ->
       List.exists (fun cell -> coord_equal cell.coordinate coord) untargeted_cells
     ) in_bounds_coords
-  ) hit_cells) in
+  ) in
 
   match adjacent_untargeted_coords with
   | [] ->
@@ -90,7 +90,7 @@ let build_cell_map (board : Battleship_types.board) : board_cell_type CoordMap.t
     let y = cell.coordinate.y_coordinate in
     CoordMap.add (x, y) cell.cell_type acc
   in
-  List.fold_left add_cell CoordMap.empty board.battleship_board
+  board.battleship_board |> List.fold_left add_cell CoordMap.empty
 
 let is_coordinate_invalid (size: int) (x: int) (y: int) : bool =
   x < 1 || x > size || y < 1 || y > size
@@ -137,10 +137,7 @@ let return_all_coordinates (size: int) : Coord.t list =
 
 
 let ship_placement_heatmap_generation (map:prob_map) (placement: Coord.t list) : prob_map =
-  List.fold_left
-    (fun acc coord -> update_heatmap_weight coord 1 acc)
-    map
-    placement
+  placement |> List.fold_left (fun acc coord -> update_heatmap_weight coord 1 acc) map
 
 let try_all_ship_placements (size: int) (is_blocked: int -> int -> bool) (ship_len: int) (x,y) : Coord.t list list =
   let offsets = List.init ship_len Fun.id in
@@ -173,13 +170,13 @@ let try_all_ship_placements (size: int) (is_blocked: int -> int -> bool) (ship_l
 let build_hunt_map (size: int) (ship_types: Battleship_types.ship_type list) (is_blocked: int -> int -> bool) : prob_map =
   let coords = return_all_coordinates size in
 
-  List.fold_left (fun acc ship_type ->
+  ship_types |> List.fold_left (fun acc ship_type ->
     let ship_len = ship_size ship_type in
     List.fold_left (fun map start ->
       try_all_ship_placements size is_blocked ship_len start
       |> List.fold_left ship_placement_heatmap_generation map
     ) acc coords
-  ) CoordMap.empty ship_types
+  ) CoordMap.empty
 
 
 let apply_target_bonus (size: int) (cell_map: board_cell_type CoordMap.t) (alive_coords: Coord.t list) (base_map: prob_map) : prob_map =
@@ -215,10 +212,8 @@ let gen_prob_map (board : Battleship_types.board) : prob_map =
   let alive_coords = alive_ship_coordinates board in
 
   let hunt_map =
-    build_hunt_map
-      size
-      (remaining_ship_types board)
-      (is_cell_already_shot size cell_map)
+    remaining_ship_types board
+    |> (fun ship_types -> build_hunt_map size ship_types (is_cell_already_shot size cell_map))
   in
 
   apply_target_bonus size cell_map alive_coords hunt_map
@@ -241,11 +236,11 @@ let hard_next_fire_coordinate (board : Battleship_types.board) : Battleship_type
   match best with
   | None ->
     let (x,y) =
-      let untargeted_cells = List.filter (fun cell ->
+      let untargeted_cells = board.battleship_board |> List.filter (fun cell ->
         match cell.cell_type with
         | Empty | ShipPart _ -> true
         | Hit | Miss -> false
-      ) board.battleship_board in
+      ) in
       let random_index = Random.int (List.length untargeted_cells) in
       let target_cell = List.nth untargeted_cells random_index in
       (target_cell.coordinate.x_coordinate, target_cell.coordinate.y_coordinate)

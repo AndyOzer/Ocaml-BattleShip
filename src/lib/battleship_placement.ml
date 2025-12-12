@@ -23,13 +23,15 @@ let is_ship_within_bounds (coordinate_list: Battleship_types.coordinate list) (b
   ) coordinate_list
 
 let does_ship_overlap (coordinate_list: Battleship_types.coordinate list) (board: Battleship_types.board) : bool =
-  List.exists (fun ship ->
-    List.exists (fun coord -> ship_contains_coordinate ship coord) coordinate_list
-  ) board.ships
+  board.ships |> List.exists (fun ship ->
+    coordinate_list |> List.exists (fun coord -> ship_contains_coordinate ship coord)
+  )
 
 let is_ship_coordinate_valid (start_coordinate: Battleship_types.coordinate) (ship_type: Battleship_types.ship_type) (input_orientation: Battleship_types.ship_orientation) (board: Battleship_types.board) : bool =
   let ship_coords = generate_ship_coordinates start_coordinate ship_type input_orientation in
-  is_ship_within_bounds ship_coords board && not (does_ship_overlap ship_coords board)
+  let within = ship_coords |> fun coords -> is_ship_within_bounds coords board in
+  let overlap = ship_coords |> fun coords -> does_ship_overlap coords board in
+  within && not overlap
 
 let place_ship_on_board (start_coordinate: Battleship_types.coordinate) (ship_type: Battleship_types.ship_type) (input_orientation: Battleship_types.ship_orientation) (board: Battleship_types.board) : Battleship_types.board * string =
   if not (is_ship_coordinate_valid start_coordinate ship_type input_orientation board) then
@@ -42,13 +44,13 @@ let place_ship_on_board (start_coordinate: Battleship_types.coordinate) (ship_ty
       coordinates = ship_coords;
       hits = [];
     } in
-    let updated_board_cells = List.map (fun cell ->
+    let updated_board_cells = board.battleship_board |> List.map (fun cell ->
       if coord_in_list cell.coordinate ship_coords then
         { coordinate = cell.coordinate; cell_type = ShipPart ship_type }
       else
         cell
-    ) board.battleship_board in
-    let new_board = { board_size = board.board_size; battleship_board = updated_board_cells; ships = new_ship :: board.ships } in
+    ) in
+    let new_board = { board with battleship_board = updated_board_cells; ships = new_ship :: board.ships } in
     (new_board, "Ship placed successfully")
 
 let auto_place_all_ships (board: Battleship_types.board) : Battleship_types.board =
@@ -61,7 +63,7 @@ let auto_place_all_ships (board: Battleship_types.board) : Battleship_types.boar
       let rec try_place b =
         let x = Random.int board.board_size + 1 in
         let y = Random.int board.board_size + 1 in
-        let orientation = List.nth orientations (Random.int (List.length orientations)) in
+        let orientation = Random.int (List.length orientations) |> (fun idx -> List.nth orientations idx) in
         let start_coord = { x_coordinate = x; y_coordinate = y } in
         if is_ship_coordinate_valid start_coord ship_type orientation b then
           let (new_board, msg) = place_ship_on_board start_coord ship_type orientation b in

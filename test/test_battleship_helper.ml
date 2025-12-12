@@ -18,7 +18,7 @@ let test_coord_in_list _ctx =
   assert_bool "not in list" (not (coord_in_list { x_coordinate = 3; y_coordinate = 3 } lst))
 
 let test_make_cell_and_board _ctx =
-  let cell = make_cell ~x:2 ~y:3 in
+  let cell = make_cell 2 3 in
   assert_equal { x_coordinate = 2; y_coordinate = 3 } cell.coordinate;
   assert_equal Empty cell.cell_type;
   let board = make_empty_board 4 in
