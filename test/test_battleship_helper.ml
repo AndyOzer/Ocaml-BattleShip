@@ -3,21 +3,21 @@ open OUnit2
 open Battleship_helper
 open Battleship_types
 
-let test_coord_equal _ctx =
+let test_coord_equal _ =
   let a = { x_coordinate = 1; y_coordinate = 2 } in
   let b = { x_coordinate = 1; y_coordinate = 2 } in
   let c = { x_coordinate = 2; y_coordinate = 3 } in
   assert_bool "coords equal" (coord_equal a b);
   assert_bool "coords not equal" (not (coord_equal a c))
 
-let test_coord_in_list _ctx =
+let test_coord_in_list _ =
   let c1 = { x_coordinate = 1; y_coordinate = 1 } in
   let c2 = { x_coordinate = 1; y_coordinate = 2 } in
   let lst = [c1; c2] in
   assert_bool "in list" (coord_in_list c1 lst);
   assert_bool "not in list" (not (coord_in_list { x_coordinate = 3; y_coordinate = 3 } lst))
 
-let test_make_cell_and_board _ctx =
+let test_make_cell_and_board _ =
   let cell = make_cell 2 3 in
   assert_equal { x_coordinate = 2; y_coordinate = 3 } cell.coordinate;
   assert_equal Empty cell.cell_type;
@@ -25,7 +25,7 @@ let test_make_cell_and_board _ctx =
   assert_equal 16 (List.length board.battleship_board);
   assert_equal [] board.ships
 
-let test_ship_contains_and_sunk _ctx =
+let test_ship_contains_and_sunk _ =
   let c1 = { x_coordinate = 1; y_coordinate = 1 } in
   let c2 = { x_coordinate = 1; y_coordinate = 2 } in
   let ship = { battleship_type = Destroyer; orientation = Horizontal; coordinates = [c1; c2]; hits = [] } in
@@ -34,7 +34,7 @@ let test_ship_contains_and_sunk _ctx =
   let ship_with_hits = { ship with hits = [c1; c2] } in
   assert_bool "now sunk" (ship_is_sunk ship_with_hits)
 
-let test_remove_sunk_ships _ctx =
+let test_remove_sunk_ships _ =
   let c1 = { x_coordinate = 1; y_coordinate = 1 } in
   let c2 = { x_coordinate = 1; y_coordinate = 2 } in
   let sunk = { battleship_type = Destroyer; orientation = Horizontal; coordinates = [c1; c2]; hits = [c1; c2] } in

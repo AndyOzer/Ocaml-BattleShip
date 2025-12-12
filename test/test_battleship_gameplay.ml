@@ -5,7 +5,7 @@ open Battleship_helper
 open Battleship_placement
 open Battleship_gameplay
 
-let test_fire_hit _ctx =
+let test_fire_hit _ =
   let board = make_empty_board 5 in
   let (b1, msg1) = place_ship_on_board { x_coordinate = 1; y_coordinate = 1 } Destroyer Horizontal board in
   assert_equal "Ship placed successfully" msg1;
@@ -17,7 +17,7 @@ let test_fire_hit _ctx =
    | Hit -> ()
    | _ -> assert_failure "Expected Hit")
 
-let test_fire_miss _ctx =
+let test_fire_miss _ =
   let board = make_empty_board 5 in
   let (b1, _) = place_ship_on_board { x_coordinate = 1; y_coordinate = 1 } Destroyer Horizontal board in
   let (b2, msg) = fire_at_coordinate { x_coordinate = 5; y_coordinate = 5 } b1 in
@@ -33,12 +33,12 @@ let test_fire_miss _ctx =
    | Miss -> ()
    | _ -> assert_failure "Expected Miss")
 
-let test_fire_out_of_bounds _ctx =
+let test_fire_out_of_bounds _ =
   let board = make_empty_board 5 in
   let (_b, msg) = fire_at_coordinate { x_coordinate = 6; y_coordinate = 1 } board in
   assert_equal "Invalid coordinate: out of bounds" msg
 
-let test_game_over_after_sinking _ctx =
+let test_game_over_after_sinking _ =
   let board = make_empty_board 5 in
   let (b1, _) = place_ship_on_board { x_coordinate = 1; y_coordinate = 1 } Destroyer Horizontal board in
   let (b2, m1) = fire_at_coordinate { x_coordinate = 1; y_coordinate = 1 } b1 in

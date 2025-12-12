@@ -230,7 +230,7 @@ let hdlr_game_get request =
       | Some _ -> Some d
       | None -> None)
     in
-    let size = Option.value size_opt ~default:20 in
+    let size = Option.value size_opt ~default:10 in
     let diff = Option.value diff_opt ~default:"dm" in
     (* Create empty boards *)
     let board_p1 = make_empty_board size in

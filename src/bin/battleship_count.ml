@@ -45,7 +45,6 @@ let run_and_print ~name ~strategy ~board_size ~trials ~seed_start =
 	let (min_v, max_v, avg) = stats_of_counts counts in
 	Stdio.printf "Results for %s: min=%d max=%d avg=%.2f time=%.4fs\n%!" name min_v max_v avg duration;
 	let results_dir = "results" in
-	(if not (Stdlib.Sys.file_exists results_dir) then Core_unix.mkdir ~perm:0o755 results_dir else ());
 	let file_path = Filename.concat results_dir (name ^ "_counts_test.txt") in
 	Out_channel.with_file file_path ~f:(fun oc ->
 		List.iter counts ~f:(fun c -> Out_channel.output_string oc (Printf.sprintf "%d\n" c));

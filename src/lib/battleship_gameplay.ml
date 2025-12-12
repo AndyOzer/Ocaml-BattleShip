@@ -17,10 +17,7 @@ let fire_at_coordinate (target_coordinate: Battleship_types.coordinate) (board: 
           ) in
 
           let updated_ships = board.ships |> List.map (fun ship ->
-            if List.exists (coord_equal target_coordinate) ship.coordinates then
               { battleship_type = ship.battleship_type; orientation = ship.orientation; coordinates = ship.coordinates; hits = target_coordinate :: ship.hits }
-            else
-              ship
           ) in
 
           let new_board = { board with battleship_board = updated_cells; ships = updated_ships } in
