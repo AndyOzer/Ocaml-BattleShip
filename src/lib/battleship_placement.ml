@@ -77,3 +77,37 @@ let auto_place_all_ships (board: Battleship_types.board) : Battleship_types.boar
       place_ships new_board rest
   in
   place_ships board ship_types
+
+let place_ship_by_index_and_coords (index: int) (coord1: Battleship_types.coordinate) (coord2: Battleship_types.coordinate) (board: Battleship_types.board) : Battleship_types.board * string =
+  let get_ship_by_index i =
+    match i with
+    | 1 -> Some Carrier
+    | 2 -> Some Battleship
+    | 3 -> Some Cruiser
+    | 4 -> Some Submarine
+    | 5 -> Some Destroyer
+    | _ -> None
+  in
+  match get_ship_by_index index with
+  | Some ship ->
+    let x1, y1 = coord1.x_coordinate, coord1.y_coordinate in
+    let x2, y2 = coord2.x_coordinate, coord2.y_coordinate in
+    let length = ship_size ship in
+    let valid_placement =
+      if x1 = x2 then
+        if abs (y1 - y2) + 1 = length then
+          Some (Vertical, { x_coordinate = x1; y_coordinate = min y1 y2 })
+        else None
+      else if y1 = y2 then
+        if abs (x1 - x2) + 1 = length then
+          Some (Horizontal, { x_coordinate = min x1 x2; y_coordinate = y1 })
+        else None
+      else
+        None
+    in
+    (match valid_placement with
+    | Some (orientation, start_coord) ->
+      place_ship_on_board start_coord ship orientation board
+    | None -> (board, "Invalid ship placement: incorrect length or not straight")
+    )
+  | None -> (board, "Invalid ship index")

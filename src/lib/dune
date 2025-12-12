@@ -11,16 +11,27 @@
     battleship_ai
   )
   (preprocess
-    (pps ppx_jane bisect_ppx)
+    (pps
+      ppx_jane
+      lwt_ppx
+      bisect_ppx
+    )
   )
 )
 
 (library
   (name battleship_helper)
   (modules battleship_helper)
-  (libraries core battleship_types)
+  (libraries
+    core
+    battleship_types
+  )
   (preprocess
-    (pps ppx_jane bisect_ppx))
+    (pps
+      ppx_jane
+      bisect_ppx
+    )
+  )
 )
 
 (library
@@ -28,29 +39,57 @@
   (modules battleship_types)
   (libraries core)
   (preprocess
-    (pps ppx_jane bisect_ppx))
+    (pps
+      ppx_jane
+      bisect_ppx
+    )
+  )
 )
 
 (library
   (name battleship_gameplay)
   (modules battleship_gameplay)
-  (libraries core battleship_types battleship_helper)
+  (libraries
+    core
+    battleship_types
+    battleship_helper
+  )
   (preprocess
-    (pps ppx_jane bisect_ppx))
+    (pps
+      ppx_jane
+      bisect_ppx
+    )
+  )
 )
 
 (library
   (name battleship_placement)
   (modules battleship_placement)
-  (libraries core battleship_types battleship_helper)
+  (libraries
+    core
+    battleship_types
+    battleship_helper
+  )
   (preprocess
-    (pps ppx_jane bisect_ppx))
+    (pps
+      ppx_jane
+      bisect_ppx
+    )
+  )
 )
 
 (library
   (name battleship_ai)
   (modules battleship_ai)
-  (libraries core battleship_types battleship_helper)
+  (libraries
+    core
+    battleship_types
+    battleship_helper
+  )
   (preprocess
-    (pps ppx_jane bisect_ppx))
+    (pps
+      ppx_jane
+      bisect_ppx
+    )
+  )
 )

@@ -1,18 +1,40 @@
 (test
- (name test_battleship_types)
- (libraries core battleship_types ounit2)
+  (name test_battleship_types)
+  (libraries
+    core
+    battleship_types
+    ounit2
+  )
 )
 
 (test
- (name test_battleship_helper)
- (libraries core battleship_helper battleship_types ounit2)
+  (name test_battleship_helper)
+  (libraries
+    core
+    battleship_helper
+    battleship_types
+    ounit2
+  )
 )
 
 (test
- (name test_battleship_placement)
- (libraries core battleship_placement battleship_types battleship_helper ounit2)
+  (name test_battleship_placement)
+  (libraries
+    core
+    battleship_placement
+    battleship_types
+    battleship_helper
+    ounit2
+  )
 )
 (test
- (name test_battleship_gameplay)
- (libraries core battleship_gameplay battleship_types battleship_helper battleship_placement ounit2)
+  (name test_battleship_gameplay)
+  (libraries
+    core
+    battleship_gameplay
+    battleship_types
+    battleship_helper
+    battleship_placement
+    ounit2
+  )
 )

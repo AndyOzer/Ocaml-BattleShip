@@ -11,3 +11,5 @@ val is_ship_coordinate_valid : Battleship_types.coordinate -> Battleship_types.s
 val place_ship_on_board : Battleship_types.coordinate -> Battleship_types.ship_type -> Battleship_types.ship_orientation -> Battleship_types.board -> Battleship_types.board * string
 
 val auto_place_all_ships : Battleship_types.board -> Battleship_types.board
+
+val place_ship_by_index_and_coords : int -> Battleship_types.coordinate -> Battleship_types.coordinate -> Battleship_types.board -> Battleship_types.board * string

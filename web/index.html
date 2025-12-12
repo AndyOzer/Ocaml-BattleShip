@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta
+    charset="UTF-8"
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
   <title>Ocaml Battleship - Setup</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-  <h1 class="text-3xl font-bold mb-8">
-    Ocaml Battleship
-  </h1>
+<body class="min-h-screen flex flex-col items-center justify-center bg-gray-200">
+  <h1 class="text-4xl font-bold mb-10">Ocaml Battleship</h1>
   <div class="w-full max-w-md mb-2">
     <input
       id="boardSize"
       name="size"
       type="text"
-      placeholder="Enter board size"
+      placeholder="Enter board size ∈ [10, 20]"
       class="w-full py-3 px-4 rounded-xl border border-gray-300 text-lg"
     />
   </div>
-  <div id="size-error" class="text-red-600 mb-6 h-6"></div>
   <div class="w-full max-w-md flex flex-wrap justify-center gap-4 px-4">
     <button
       onclick="startGame('ez')"
