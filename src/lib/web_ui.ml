@@ -176,7 +176,10 @@ let boards_to_html (board_p1 : board) (board_p2 : board) (game_diff : string) (g
   let html_title_p2 =
     match game_diff with
     | "dm" -> "😈 Enemy Board - Demon Mode 😈"
-    | _ -> "Enemy Board"
+    | "ez" -> "Enemy Board - Easy"
+    | "md" -> "Enemy Board - Medium"
+    | "hd" -> "Enemy Board - Hard"
+    | _ -> "Error: Invalid game difficulty"
   in
   Printf.sprintf
     "<div id=\"boards\" class=\"flex gap-8 flex-wrap justify-center\">
