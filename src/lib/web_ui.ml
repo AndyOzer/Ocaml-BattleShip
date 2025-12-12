@@ -101,11 +101,12 @@ let board_to_render_html (board : board) (side : string) (game_state : string) :
             Printf.sprintf "<div class=\"w-8 h-8 %s border border-blue-300/30 rounded-sm\"></div>" html_class_color
           | _ ->
             (* Should be Empty or placed first point *)
-            if is_placed then
+            match is_placed with
+            | true ->
               (* Placed first point: Highlighted *)
               let html_class_color = "bg-amber-400 border-amber-500 shadow-[0_0_15px_rgba(251,191,36,0.8)] z-20 scale-110 ring-2 ring-amber-300" in
               Printf.sprintf "<div class=\"w-8 h-8 %s border border-blue-300/30 rounded-sm\"></div>" html_class_color
-            else
+            | false ->
               (* Empty cell: Clickable *)
               let html_class_color = "bg-blue-400 hover:bg-blue-300 hover:scale-105 hover:shadow-lg hover:z-10 cursor-pointer transition-all duration-200 active:scale-95" in
               Printf.sprintf
@@ -161,7 +162,7 @@ let boards_to_html (board_p1 : board) (board_p2 : board) (game_diff : string) (g
     | "end1" -> "😭 You Lose! 😭"
     | "end2" -> "🎉 You Win! 🎉"
     | state when String.is_prefix state ~prefix:"place" ->
-      let is_error = if String.contains state 'E' then "Invalid Placement!" else "" in
+      let is_error = match String.contains state 'E' with true -> "Invalid Placement!" | false -> "" in
       let msg = match game_state with
         | state when String.is_prefix state ~prefix:"place1" -> "Place Your Carrier - 1 x 5"
         | state when String.is_prefix state ~prefix:"place2" -> "Place Your Battleship - 1 x 4"
@@ -218,7 +219,7 @@ let hdlr_game_get request =
       try
         size_req
         >>= fun s -> Some (Int.of_string s)
-        >>= fun x -> if x > 9 && x < 21 then Some x else None
+        >>= fun x -> match x > 9 && x < 21 with true -> Some x | false -> None
       with _ -> None
     in
     let diff_opt =
@@ -248,9 +249,9 @@ let hdlr_game_get request =
 let run_game x y board_p1 board_p2 diff =
   let coord = { x_coordinate = x; y_coordinate = y } in
   let board_p2_fired, _ = fire_at_coordinate coord board_p2 in
-  if check_if_game_over board_p2_fired then
-    boards_to_html board_p1 board_p2_fired diff "end2"
-  else
+  match check_if_game_over board_p2_fired with
+  | true -> boards_to_html board_p1 board_p2_fired diff "end2"
+  | false ->
     let coord_p1 = 
       match diff with
       | "ez" -> easy_next_fire_coordinate board_p1
@@ -259,10 +260,9 @@ let run_game x y board_p1 board_p2 diff =
       | _ -> optimal_next_fire_coordinate board_p1
     in
     let board_p1_fired, _ = fire_at_coordinate coord_p1 board_p1 in
-    if check_if_game_over board_p1_fired then
-      boards_to_html board_p1_fired board_p2_fired diff "end1"
-    else
-      boards_to_html board_p1_fired board_p2_fired diff "game"
+    match check_if_game_over board_p1_fired with
+    | true -> boards_to_html board_p1_fired board_p2_fired diff "end1"
+    | false -> boards_to_html board_p1_fired board_p2_fired diff "game"
 
 (* Run placement logic *)
 let run_placement x y board_p1 diff game_state =

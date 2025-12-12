@@ -1,8 +1,8 @@
 open Core
 
 type coordinate = {
-	x_coordinate : int;
-	y_coordinate : int;
+  x_coordinate : int;
+  y_coordinate : int;
 } [@@deriving sexp, compare, equal]
 
 type ship_type = Carrier | Battleship | Cruiser | Submarine | Destroyer [@@deriving sexp, compare, equal]
@@ -10,28 +10,28 @@ type ship_type = Carrier | Battleship | Cruiser | Submarine | Destroyer [@@deriv
 type board_cell_type = Empty | ShipPart of ship_type | Hit | Miss [@@deriving sexp, compare, equal]
 
 type cell = {
-	coordinate : coordinate;
-	cell_type : board_cell_type;
+  coordinate : coordinate;
+  cell_type : board_cell_type;
 } [@@deriving sexp, compare, equal]
 
 let ship_size = function
-	| Carrier -> 5
-	| Battleship -> 4
-	| Cruiser -> 3
-	| Submarine -> 3
-	| Destroyer -> 2
+  | Carrier -> 5
+  | Battleship -> 4
+  | Cruiser -> 3
+  | Submarine -> 3
+  | Destroyer -> 2
 
 type ship_orientation = Horizontal | Vertical [@@deriving sexp, compare, equal]
 
 type ship = {
-	battleship_type : ship_type;
-	orientation : ship_orientation;
-	coordinates : coordinate list;
-	hits : coordinate list;
+  battleship_type : ship_type;
+  orientation : ship_orientation;
+  coordinates : coordinate list;
+  hits : coordinate list;
 } [@@deriving sexp, compare, equal]
 
 type board ={
-	board_size : int;
-	battleship_board : cell list;
-	ships : ship list;
+  board_size : int;
+  battleship_board : cell list;
+  ships : ship list;
 } [@@deriving sexp, compare, equal]
