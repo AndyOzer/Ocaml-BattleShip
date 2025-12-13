@@ -101,16 +101,16 @@ let place_ship_by_index_and_coords (index: int) (coord1: Battleship_types.coordi
       | true ->
         (match abs (y1 - y2) + 1 = length with
         | true -> Some (Vertical, { x_coordinate = x1; y_coordinate = min y1 y2 })
-        | false ->
-          match y1 = y2 with
-          | true ->
-            (match abs (x1 - x2) + 1 = length with
-            | true -> Some (Horizontal, { x_coordinate = min x1 x2; y_coordinate = y1 })
-            | false -> None
-            )
-          | false -> None
+        | false -> None
         )
-      | false -> None
+      | false ->
+        match y1 = y2 with
+        | true ->
+          (match abs (x1 - x2) + 1 = length with
+          | true -> Some (Horizontal, { x_coordinate = min x1 x2; y_coordinate = y1 })
+          | false -> None
+          )
+        | false -> None
     in
     (match valid_placement with
     | Some (orientation, start_coord) ->
