@@ -40,7 +40,9 @@ dune exec -- _build/default/src/bin/battleship_count.exe
 ## Usage
 
 ### Enter battleship size and select AI difficulty
-Invalid input will trigger the `😈 Demon Mode 😈`
+Wanna mess things up? Feed it some **invalid input** and enjoy the penalty: `😈 Demon Mode 😈` !!!
+
+Relax — HEX values are legit (e.g. `0x0F`)
 
 ![battleship_homepage](figures/homepage.png)
 
