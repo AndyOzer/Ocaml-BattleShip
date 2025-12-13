@@ -7,6 +7,7 @@ let generate_ship_coordinates (start_coordinate: Battleship_types.coordinate) (s
   let rec aux coord acc n =
     if n = 0 then List.rev acc
     else
+      (* Add next coordinate to the list *)
       let next_coordinate =
         match input_orientation with
         | Horizontal -> { x_coordinate = coord.x_coordinate + 1; y_coordinate = coord.y_coordinate }

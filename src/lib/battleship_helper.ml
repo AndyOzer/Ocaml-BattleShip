@@ -22,7 +22,7 @@ let ship_contains_coordinate ship coord =
 let ship_is_sunk ship =
   ship.coordinates |> List.for_all (fun c -> coord_in_list c ship.hits)
 
-let remove_sunk_ships (board: Battleship_types.board) : Battleship_types.board =
+  let remove_sunk_ships (board: Battleship_types.board) : Battleship_types.board =
   board.ships
   |> List.partition ship_is_sunk
   |> snd
