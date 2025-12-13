@@ -2,6 +2,8 @@
 
 Authors: Zhe Ou, Ding Zhao
 
+Course Project: JHU EN.601.629 2025Fall
+
 ## Overview
 
 The purpose of this project is to create a battleship game with multiple levels of AI difficulty to support Human vs AI.
