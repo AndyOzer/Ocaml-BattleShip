@@ -1,5 +1,3 @@
-
-
 val generate_ship_coordinates : Battleship_types.coordinate -> Battleship_types.ship_type -> Battleship_types.ship_orientation -> Battleship_types.coordinate list
 
 val is_ship_within_bounds : Battleship_types.coordinate list -> Battleship_types.board -> bool

@@ -1,12 +1,12 @@
 open Battleship_types
 open Battleship_helper
 
-
 let generate_ship_coordinates (start_coordinate: Battleship_types.coordinate) (ship_type: Battleship_types.ship_type) (input_orientation: Battleship_types.ship_orientation) : Battleship_types.coordinate list =
   let size = ship_size ship_type in
   let rec aux coord acc n =
-    if n = 0 then List.rev acc
-    else
+    match n = 0 with
+    | true -> List.rev acc
+    | false ->
       (* Add next coordinate to the list *)
       let next_coordinate =
         match input_orientation with
@@ -35,22 +35,24 @@ let is_ship_coordinate_valid (start_coordinate: Battleship_types.coordinate) (sh
   within && not overlap
 
 let place_ship_on_board (start_coordinate: Battleship_types.coordinate) (ship_type: Battleship_types.ship_type) (input_orientation: Battleship_types.ship_orientation) (board: Battleship_types.board) : Battleship_types.board * string =
-  if not (is_ship_coordinate_valid start_coordinate ship_type input_orientation board) then
-    (board, "Invalid ship placement: out of bounds or overlaps existing ship")
-  else
+  match (is_ship_coordinate_valid start_coordinate ship_type input_orientation board) with
+  | false -> (board, "Invalid ship placement: out of bounds or overlaps existing ship")
+  | true ->
     let ship_coords = generate_ship_coordinates start_coordinate ship_type input_orientation in
-    let new_ship = {
-      battleship_type = ship_type;
-      orientation = input_orientation;
-      coordinates = ship_coords;
-      hits = [];
-    } in
+    let new_ship =
+      {
+        battleship_type = ship_type;
+        orientation = input_orientation;
+        coordinates = ship_coords;
+        hits = [];
+      }
+    in
     let updated_board_cells = board.battleship_board |> List.map (fun cell ->
-      if coord_in_list cell.coordinate ship_coords then
-        { coordinate = cell.coordinate; cell_type = ShipPart ship_type }
-      else
-        cell
-    ) in
+      match coord_in_list cell.coordinate ship_coords with
+      | true -> { coordinate = cell.coordinate; cell_type = ShipPart ship_type }
+      | false -> cell
+    )
+    in
     let new_board = { board with battleship_board = updated_board_cells; ships = new_ship :: board.ships } in
     (new_board, "Ship placed successfully")
 
@@ -66,13 +68,13 @@ let auto_place_all_ships (board: Battleship_types.board) : Battleship_types.boar
         let y = Random.int board.board_size + 1 in
         let orientation = Random.int (List.length orientations) |> (fun idx -> List.nth orientations idx) in
         let start_coord = { x_coordinate = x; y_coordinate = y } in
-        if is_ship_coordinate_valid start_coord ship_type orientation b then
-          let (new_board, msg) = place_ship_on_board start_coord ship_type orientation b in
+        match is_ship_coordinate_valid start_coord ship_type orientation b with
+        | true ->
+          (let (new_board, msg) = place_ship_on_board start_coord ship_type orientation b in
             match msg with
             | "Ship placed successfully" -> new_board
-            | _ -> try_place b
-        else
-          try_place b
+            | _ -> try_place b)
+        | false -> try_place b
       in
       let new_board = try_place b in
       place_ships new_board rest
@@ -95,16 +97,20 @@ let place_ship_by_index_and_coords (index: int) (coord1: Battleship_types.coordi
     let x2, y2 = coord2.x_coordinate, coord2.y_coordinate in
     let length = ship_size ship in
     let valid_placement =
-      if x1 = x2 then
-        if abs (y1 - y2) + 1 = length then
-          Some (Vertical, { x_coordinate = x1; y_coordinate = min y1 y2 })
-        else None
-      else if y1 = y2 then
-        if abs (x1 - x2) + 1 = length then
-          Some (Horizontal, { x_coordinate = min x1 x2; y_coordinate = y1 })
-        else None
-      else
-        None
+      match x1 = x2 with
+      | true ->
+        (match abs (y1 - y2) + 1 = length with
+        | true -> Some (Vertical, { x_coordinate = x1; y_coordinate = min y1 y2 })
+        | false ->
+          match y1 = y2 with
+          | true ->
+            (match abs (x1 - x2) + 1 = length with
+            | true -> Some (Horizontal, { x_coordinate = min x1 x2; y_coordinate = y1 })
+            | false -> None
+            )
+          | false -> None
+        )
+      | false -> None
     in
     (match valid_placement with
     | Some (orientation, start_coord) ->

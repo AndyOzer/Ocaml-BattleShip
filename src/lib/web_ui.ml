@@ -249,7 +249,7 @@ let hdlr_game_get request =
       Dream.html "<h1>Failed to load game.html</h1>"
 
 (* Run game logic: Fire P2 then P1 *)
-let run_game x y board_p1 board_p2 diff =
+let run_game (x : int) (y : int) (board_p1 : board) (board_p2 : board) (diff : string) : string =
   let coord = { x_coordinate = x; y_coordinate = y } in
   let board_p2_fired, _ = fire_at_coordinate coord board_p2 in
   match check_if_game_over board_p2_fired with
@@ -268,7 +268,7 @@ let run_game x y board_p1 board_p2 diff =
     | false -> boards_to_html board_p1_fired board_p2_fired diff "game"
 
 (* Run placement logic *)
-let run_placement x y board_p1 diff game_state =
+let run_placement (x : int) (y : int) (board_p1 : board) (diff : string) (game_state : string) : string =
   let size = board_p1.board_size in
   let board_p2 = make_empty_board size in
   try
@@ -299,6 +299,7 @@ let run_placement x y board_p1 diff game_state =
     with _ ->
       (* Unknown state, we should not get here: Fail over to initial placement *)
       boards_to_html board_p1 board_p2 diff "place1()"
+
 (* Web POST request handler for route "/game" *)
 let hdlr_game_post request =
   match Dream.header request "HX-Request" with

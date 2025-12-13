@@ -14,8 +14,9 @@ let test_fire_hit _ =
   assert_equal ~printer:string_of_int 1 (List.length b2.ships);
   let cell = List.find_exn b2.battleship_board ~f:(fun c -> coord_equal c.coordinate { x_coordinate = 1; y_coordinate = 1 }) in
   (match cell.cell_type with
-   | Hit -> ()
-   | _ -> assert_failure "Expected Hit")
+  | Hit -> ()
+  | _ -> assert_failure "Expected Hit"
+  )
 
 let test_fire_miss _ =
   let board = make_empty_board 5 in
@@ -30,8 +31,9 @@ let test_fire_miss _ =
   assert_equal "Coordinate already targeted" msg_already_hit2;
   let cell = List.find_exn b2.battleship_board ~f:(fun c -> coord_equal c.coordinate { x_coordinate = 5; y_coordinate = 5 }) in
   (match cell.cell_type with
-   | Miss -> ()
-   | _ -> assert_failure "Expected Miss")
+  | Miss -> ()
+  | _ -> assert_failure "Expected Miss"
+  )
 
 let test_fire_out_of_bounds _ =
   let board = make_empty_board 5 in

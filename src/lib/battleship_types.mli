@@ -28,6 +28,3 @@ type board ={
   battleship_board : cell list;
   ships : ship list;
 } [@@deriving sexp, compare, equal]
-
-
-

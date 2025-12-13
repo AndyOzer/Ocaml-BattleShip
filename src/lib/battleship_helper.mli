@@ -1,5 +1,3 @@
-
-
 val coord_equal : Battleship_types.coordinate -> Battleship_types.coordinate -> bool
 
 val coord_in_list : Battleship_types.coordinate -> Battleship_types.coordinate list -> bool
